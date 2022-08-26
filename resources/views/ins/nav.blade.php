@@ -1,3 +1,7 @@
+<style>
+    a {color: black; text-decoration: none}
+</style>
+
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container">
     <a class="navbar-brand" href="{{ route('forum') }}">Forum</a>

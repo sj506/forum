@@ -10,8 +10,12 @@
             </p>
             <hr>
             <div class="d-grid d-md-flex justify-content-md-end mb-3">
-                <button class="btn btn-primary me-md-2" type="button">Edit</button>
-                <button class="btn btn-danger" type="button">Danger</button>
+                @auth
+                @if ($data->user_id === Auth::user()->id)                    
+                <button class="btn btn-primary me-md-2" type="button"><a href="{{ url('/')}}/updboard/{{ $data->i_board }}">Edit</a></button>
+                <button class="btn btn-danger" type="button"><a href="{{ url('/')}}/delboard/{{ $data->i_board }}">Delete</a></button>
+                @endif
+                @endauth
             </div>
         </div>
         <div>
@@ -31,10 +35,12 @@
                     <li class="list-group-item">And a fifth one</li>
                 </ul>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                    <div class="input-group input-group-sm mb-3">
-                        <input type="text" class="form-control mt-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <button class="btn btn-primary me-md-2 h-50" type="button">Submit</button>
+                    <form action="{{ route('inscomment') }}" method="post">
+                        <div class="input-group input-group-sm mb-3">
+                            <input type="text" class="form-control mt-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <button class="btn btn-primary me-md-2 h-50" type="button">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>

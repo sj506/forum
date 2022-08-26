@@ -20,7 +20,7 @@
                     <i class="fa-solid fa-heart"> 3</i>
                     </span>
                     <div>
-                      <small>{{ substr($item->created_at,0,10) }} | by {{ $item->name }}</small>
+                      <small>{{ substr($item->updated_at,0,10) }} | by {{ $item->name }}</small>
                     </div>
                 </li>
                 @endforeach

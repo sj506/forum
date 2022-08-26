@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\board;
 use Illuminate\Support\Facades\DB;
+use App\Models\comment;
 
-class boardController extends Controller
+class commentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,6 @@ class boardController extends Controller
     public function index()
     {
         //
-        return view('forum.write');
-
     }
 
     /**
@@ -36,19 +34,18 @@ class boardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         //
-        board::create([
+            comment::create([
+            'i_board' => $id,
             'user_id' => $request['id'],
-            'title' => $request['title'],
             'ctnt' => $request['ctnt'],
         ]);
 
-        $data = DB::table('boards')->get();;
-
         // return view('home');
-        return view('forum.index',compact('data'));
+        return view('forum.index');
+
     }
 
     /**
@@ -60,10 +57,6 @@ class boardController extends Controller
     public function show($id)
     {
         //
-        $data = DB::table('boards')
-                ->where('i_board',$id)
-                ->first();
-        return view('forum.view',compact('data'));
     }
 
     /**
@@ -75,11 +68,6 @@ class boardController extends Controller
     public function edit($id)
     {
         //
-        $data = DB::table('boards')
-                ->where('i_board',$id)
-                ->first();
-
-        return view('forum.updboard',compact('data'));
     }
 
     /**
@@ -92,12 +80,6 @@ class boardController extends Controller
     public function update(Request $request, $id)
     {
         //
-        DB::table('boards')
-            ->where('i_board',$id)
-            ->update(['title' => strval($request->title) , 'ctnt' => strval($request->ctnt) , 'updated_at' => now()]);
-
-        return response()->json(strval($request->ctnt));
-
     }
 
     /**
@@ -107,15 +89,7 @@ class boardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {   
-        // 해당 글을 쓴 유저가 아닌 다른 유저가 주소값으로 들어갔을 때 삭제되는 이슈있음
-        DB::table('boards')->where('i_board',$id)->delete();
-
-        $data = DB::table('boards')
-                ->join('users','user_id','=','users.id')
-                ->select('boards.*', 'users.name')
-                ->get();
-
-        return view('forum.index',compact('data'));
+    {
+        //
     }
 }
