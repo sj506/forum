@@ -34,12 +34,12 @@
                     <li class="list-group-item">A fourth item</li>
                     <li class="list-group-item">And a fifth one</li>
                 </ul>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-2">
-                    <form action="{{ route('inscomment') }}" method="post">
+                <div class="col-12 mt-2">
+                    <form class="d-flex" action="{{ url('/')}}/inscomment/{{ $data->i_board }}" method="post">
                         <div class="input-group input-group-sm mb-3">
                             <input type="text" class="form-control mt-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                         </div>
-                        <button class="btn btn-primary me-md-2 h-50" type="button">Submit</button>
+                        <button class="btn btn-primary ms-md-2 h-50">Submit</button>
                     </form>
                 </div>
             </div>

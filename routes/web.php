@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\boardController;
+use App\Http\Controllers\commentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,6 @@ Route::get('/write', [boardController::class, 'index'])->name('write')->middlewa
 Route::get('/delboard/{id}', [boardController::class, 'destroy'])->name('delboard');
 Route::get('/updboard/{id}', [boardController::class, 'edit'])->name('updboard');
 Route::post('/update/{id}', [boardController::class, 'update'])->name('update');
-Route::post('/inscomment/{id}', [boardController::class, 'inscomment'])->name('inscomment');
+Route::post('/inscomment/{id}', [commentController::class, 'store'])->name('inscomment');
 
 });
