@@ -73,13 +73,24 @@ class boardController extends Controller
                 ->where('i_board',$id)
                 ->count();
 
+        $likeCount = DB::table('likes')
+                    ->where('i_board', $id)
+                    ->count();
+
+        $likeCheck = DB::table('likes')
+                    ->select('likes.i_user')
+                    ->where('i_board', $id)
+                    ->get();
+
+        $check = 0;
+
         // $users = DB::table('users')
         //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
         //     ->join('orders', 'users.id', '=', 'orders.user_id')
         //     ->select('users.*', 'contacts.phone', 'orders.price')
         //     ->get();
 
-        return view('forum.view',compact('data','comment','count'));
+        return view('forum.view',compact('data' , 'comment' , 'count' ,'likeCount' , 'likeCheck' , 'check'));
     }
 
     /**

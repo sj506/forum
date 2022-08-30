@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/8eb4f0837a.js" crossorigin="anonymous"></script>
 
   </head>
-  <body>
+  <body class="overflow-hidden">
 
 @include('ins.nav')
 @yield('content')

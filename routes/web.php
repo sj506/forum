@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\boardController;
 use App\Http\Controllers\commentController;
+use App\Http\Controllers\likeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::post('/update/{id}', [boardController::class, 'update'])->name('update');
 Route::post('/inscomment/{id}', [commentController::class, 'store'])->name('inscomment');
 Route::post('/store', [boardController::class, 'store'])->name('store');
 Route::get('/delcomment/{i_com}/{i_board}', [commentController::class, 'destroy'])->name('delcomment');
-
+Route::get('/insheart/{i_board}/{i_user}', [likeController::class, 'store'])->name('insheart');
+Route::get('/delheart/{i_board}/{i_user}', [likeController::class, 'destroy'])->name('delheart');
 
 });

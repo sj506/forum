@@ -21,9 +21,26 @@
         <div>
             <div class="col-12">
                 <div class="d-grid gap-2 col-3 mx-auto">
-                        <button class="btn btn-outline-danger fs-6 mt-3">
-                            <i class="fa-solid fa-heart"> 3</i>
-                        </button>
+                    @auth
+                        @foreach ($likeCheck as $item)
+                        <div class="d-none">
+                        {{ $check = $item->i_user === Auth::user()->id ? 1 : 0 }}
+                        </div>
+                        @endforeach
+
+                        @if ($check === 1)
+                                <button class="btn btn-danger fs-6 mt-3" onclick="location.href='{{ url('/')}}/delheart/{{ $data->i_board }}/{{ Auth::user()->id }}'">
+                                    <i class="fa-solid fa-heart">  {{ $likeCount }}</i>
+                                </button>
+                        @else
+                                <button class="btn btn-outline-danger fs-6 mt-3" onclick="location.href='{{ url('/')}}/insheart/{{ $data->i_board }}/{{ Auth::user()->id }}'">
+                                    <i class="fa-solid fa-heart"> {{ $likeCount }}</i>
+                                </button>
+                        @endif
+                    @endauth
+                        {{-- <button class="btn btn-outline-danger fs-6 mt-3" onclick="alert('로그인 후에 가능합니다.')">
+                            <i class="fa-solid fa-heart"> {{ $likeCount }}</i>
+                        </button> --}}
                 </div>
             </div>
             <div class="col-12">
@@ -45,7 +62,9 @@
                     <form class="d-flex" action="{{ url('/')}}/inscomment/{{ $data->i_board }}" method="post">
                         @csrf
                         <div class="input-group input-group-sm mb-3">
-                            <input class="d-none" type="text" name="id" value="{{ Auth::user()->id }}" readonly>
+                            @auth
+                                <input class="d-none" type="text" name="id" value="{{ Auth::user()->id }}" readonly>
+                            @endauth
                             <input name="ctnt" type="text" class="form-control mt-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                         </div>
                         <button class="btn btn-primary ms-md-2 h-50">Submit</button>

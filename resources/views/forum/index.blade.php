@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
-            <h4>Movie</h4>
+            <h4>My board</h4>
             <ul class="list-group my-4">
                 @foreach ($data as $item)
                 <li class="list-group-item list-group-item-action">
@@ -20,58 +20,26 @@
                             <span class="badge text-bg-info ms-2"><i class="fa-solid fa-comment-dots"></i> {{ $count['count'] }}</span>
                         @endif
                     @endforeach
+                    @foreach ($likeCount as $count)
+                        @if ($item->i_board === $count['i_board'])
                         <span class="badge text-bg-danger">
-                        <i class="fa-solid fa-heart"> 3</i>
+                            <i class="fa-solid fa-heart"> {{ $count['count'] }}</i>
                         </span>
+                        @endif
+                    @endforeach
                     <div>
                       <small>{{ substr($item->updated_at,0,10) }} | by {{ $item->name }}</small>
                     </div>
                 </li>
                 @endforeach
             </ul>
-            <div class="d-grid gap-2 col-6 mx-auto my-3">
-            <button class="btn btn-secondary">All Postings of Movie Category</button>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="col-12">
-            <h4>Music</h4>
-            <ul class="list-group my-4">
-                <li class="list-group-item list-group-item-action">
-                    Three Days of the Condor
-                    <span class="badge text-bg-info"><i class="fa-solid fa-comment-dots"></i> 4</span>
-                    <span class="badge text-bg-danger">
-                    <i class="fa-solid fa-heart"> 3</i>
-                    </span>
-                    <div>
-                      <small>2022-01-22 | by SB Hero</small>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action">
-                    Three Days of the Condor
-                    <span class="badge text-bg-info"><i class="fa-solid fa-comment-dots"></i> 4</span>
-                    <span class="badge text-bg-danger">
-                    <i class="fa-solid fa-heart"> 3</i>
-                    </span>
-                    <div>
-                      <small>2022-01-22 | by SB Hero</small>
-                    </div>
-                </li>
-                <li class="list-group-item list-group-item-action">
-                    Three Days of the Condor
-                    <span class="badge text-bg-info"><i class="fa-solid fa-comment-dots"></i> 4</span>
-                    <span class="badge text-bg-danger">
-                    <i class="fa-solid fa-heart"> 3</i>
-                    </span>
-                    <div>
-                      <small>2022-01-22 | by SB Hero</small>
-                    </div>
-                </li>
-            </ul>
-            <div class="d-grid gap-2 col-6 mx-auto my-3">
-            <button class="btn btn-secondary">All Postings of Music Category</button>
+            <div class="d-flex justify-content-center my-3">
+                @if ($data->currentPage() !== 1)
+                    <button class="btn btn-secondary" onclick="location.href='{{ url('/')}}?page={{ $data->currentPage() -1 }}'">이전 글</button>
+                @endif
+                @if ($data->currentPage() !== $data->lastPage())
+                    <button class="btn btn-secondary ms-3" onclick="location.href='{{ url('/')}}?page={{ $data->currentPage() +1 }}'">다음 글</button>
+                @endif
             </div>
         </div>
     </div>
