@@ -44,8 +44,7 @@ class commentController extends Controller
         ]);
 
         // return view('home');
-        return view('forum.index');
-
+        return redirect()->route('view' , ['id' => $id]);
     }
 
     /**
@@ -88,8 +87,11 @@ class commentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($i_com, $i_board)
     {
         //
+        DB::table('comments')->where('i_comment',$i_com)->delete();
+
+        return redirect()->route('view' , ['id' => $i_board]);
     }
 }

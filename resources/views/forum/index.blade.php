@@ -15,10 +15,14 @@
                     <a href="{{ url('/')}}/view/{{ $item->i_board }}">
                         {{ $item->title }}
                     </a>
-                    <span class="badge text-bg-info"><i class="fa-solid fa-comment-dots"></i> 4</span>
-                    <span class="badge text-bg-danger">
-                    <i class="fa-solid fa-heart"> 3</i>
-                    </span>
+                    @foreach ($countList as $count)
+                        @if ($item->i_board === $count['i_board'])
+                            <span class="badge text-bg-info ms-2"><i class="fa-solid fa-comment-dots"></i> {{ $count['count'] }}</span>
+                        @endif
+                    @endforeach
+                        <span class="badge text-bg-danger">
+                        <i class="fa-solid fa-heart"> 3</i>
+                        </span>
                     <div>
                       <small>{{ substr($item->updated_at,0,10) }} | by {{ $item->name }}</small>
                     </div>

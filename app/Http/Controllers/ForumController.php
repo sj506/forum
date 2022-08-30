@@ -11,14 +11,23 @@ class ForumController extends Controller
         $data = DB::table('boards')
                 ->join('users','user_id','=','users.id')
                 ->select('boards.*', 'users.name')
+                ->orderBy('updated_at' , 'DESC')
                 ->get();
+
+        $countList = [];
+        foreach ($data as $key => $item) {
+                    $count = DB::table('comments')
+                    ->where('i_board',$item->i_board)
+                    ->count('i_comment');
+            array_push($countList , ['count'=> $count , 'i_board' => $item->i_board]);
+        }
 
         // $users = DB::table('users')
         //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
         //     ->join('orders', 'users.id', '=', 'orders.user_id')
         //     ->select('users.*', 'contacts.phone', 'orders.price')
         //     ->get();
-        return view('forum.index',compact('data'));
+        return view('forum.index',compact('data' , 'countList'));
     }
 
 }

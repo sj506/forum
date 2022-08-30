@@ -24,27 +24,25 @@
         </li>
       </ul>
     </div>
-  </div>
-  <!-- Example single danger button -->
-
-  @auth
+      @auth
       
-<div class="dropdown-center">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      {{ Auth::user()->name }}
-  </button>
-  <ul class="dropdown-menu">
-    <li>       
-      <form class="dropdown-item" method="POST" action="{{ route('logout') }}">
-        @csrf
-        <x-dropdown-link class="w-25" :href="route('logout')"
-          onclick="event.preventDefault();
-          this.closest('form').submit();">
-          {{ __('Log Out') }}
-          </x-dropdown-link>
-      </form>
-    </li>
-  </ul>
-</div>
-  @endauth
+    <div class="dropdown-center">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ Auth::user()->name }}
+      </button>
+      <ul class="dropdown-menu">
+        <li>       
+          <form class="dropdown-item" method="POST" action="{{ route('logout') }}">
+            @csrf
+            <x-dropdown-link class="w-25" :href="route('logout')"
+              onclick="event.preventDefault();
+              this.closest('form').submit();">
+              {{ __('Log Out') }}
+              </x-dropdown-link>
+          </form>
+        </li>
+      </ul>
+    </div>
+      @endauth
+  </div>
 </nav>

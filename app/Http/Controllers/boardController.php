@@ -39,16 +39,15 @@ class boardController extends Controller
     public function store(Request $request)
     {
         //
+        // $user_id = Auth::user()->user_id;
         board::create([
             'user_id' => $request['id'],
             'title' => $request['title'],
             'ctnt' => $request['ctnt'],
         ]);
 
-        $data = DB::table('boards')->get();;
-
         // return view('home');
-        return view('forum.index',compact('data'));
+        return redirect()->route('forum');
     }
 
     /**
@@ -63,7 +62,24 @@ class boardController extends Controller
         $data = DB::table('boards')
                 ->where('i_board',$id)
                 ->first();
-        return view('forum.view',compact('data'));
+
+        $comment = DB::table('comments')
+                ->where('i_board',$id)
+                ->select('comments.i_comment' , 'comments.user_id' , 'comments.i_board' , 'comments.ctnt' , 'comments.created_at')
+                ->orderBy('updated_at' , 'desc')
+                ->get();
+
+        $count = DB::table('comments')
+                ->where('i_board',$id)
+                ->count();
+
+        // $users = DB::table('users')
+        //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
+        //     ->join('orders', 'users.id', '=', 'orders.user_id')
+        //     ->select('users.*', 'contacts.phone', 'orders.price')
+        //     ->get();
+
+        return view('forum.view',compact('data','comment','count'));
     }
 
     /**
@@ -111,11 +127,7 @@ class boardController extends Controller
         // 해당 글을 쓴 유저가 아닌 다른 유저가 주소값으로 들어갔을 때 삭제되는 이슈있음
         DB::table('boards')->where('i_board',$id)->delete();
 
-        $data = DB::table('boards')
-                ->join('users','user_id','=','users.id')
-                ->select('boards.*', 'users.name')
-                ->get();
+        return redirect()->route('forum');
 
-        return view('forum.index',compact('data'));
     }
 }

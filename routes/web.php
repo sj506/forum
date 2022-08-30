@@ -20,9 +20,8 @@ use App\Http\Controllers\commentController;
 //     return view('welcome');
 // });
 Route::get('/', [ForumController::class, 'index'])->name('forum');
-Route::get('/view/{id}', [boardController::class, 'show']);
+Route::get('/view/{id}', [boardController::class, 'show'])->name('view');
 
-Route::post('/store', [boardController::class, 'store'])->name('store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,5 +35,8 @@ Route::get('/delboard/{id}', [boardController::class, 'destroy'])->name('delboar
 Route::get('/updboard/{id}', [boardController::class, 'edit'])->name('updboard');
 Route::post('/update/{id}', [boardController::class, 'update'])->name('update');
 Route::post('/inscomment/{id}', [commentController::class, 'store'])->name('inscomment');
+Route::post('/store', [boardController::class, 'store'])->name('store');
+Route::get('/delcomment/{i_com}/{i_board}', [commentController::class, 'destroy'])->name('delcomment');
+
 
 });
