@@ -4,11 +4,13 @@
 <div class="container">
     <div class="row">
         <div class="col-12 border mt-5">
+            <div class="mt-4 ms-4">
             <h3>{{ $data->title }}</h3>
             <p>
                 {{ $data->ctnt }}
             </p>
             <hr>
+            </div>
             <div class="d-grid d-md-flex justify-content-md-end mb-3">
                 @auth
                 @if ($data->user_id === Auth::user()->id)                    
