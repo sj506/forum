@@ -1,4 +1,5 @@
 @extends('layouts.forum')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 <div class="container">
@@ -24,13 +25,14 @@
             <div class="col-12">
                 <div class="d-grid gap-2 col-3 mx-auto">
                     @auth
-                        @foreach ($likeCheck as $item)
-                        <div class="d-none">
-                        {{ $check = $item->i_user === Auth::user()->id ? 1 : 0 }}
-                        </div>
-                        @endforeach
+                                {{-- 테스트 --}}
+                                {{-- <button class="btn btn-outline-danger fs-6 mt-3" onclick="heartClick('{{ $data->i_board }},{{ Auth::user()->id }}')">
+                                    @csrf
+                                    <i class="fa-solid fa-heart">  {{ $likeCount }}</i>
+                                </button> --}}
+                                {{-- 테스트 --}}
 
-                        @if ($check === 1)
+                        @if ($likeCheck === 1)
                                 <button class="btn btn-danger fs-6 mt-3" onclick="location.href='{{ url('/')}}/delheart/{{ $data->i_board }}/{{ Auth::user()->id }}'">
                                     <i class="fa-solid fa-heart">  {{ $likeCount }}</i>
                                 </button>
@@ -40,9 +42,11 @@
                                 </button>
                         @endif
                     @endauth
-                        {{-- <button class="btn btn-outline-danger fs-6 mt-3" onclick="alert('로그인 후에 가능합니다.')">
+                    @if (!Auth::user())
+                        <button class="btn btn-outline-danger fs-6 mt-3" onclick="alert('로그인 후에 가능합니다.')">
                             <i class="fa-solid fa-heart"> {{ $likeCount }}</i>
-                        </button> --}}
+                        </button>
+                    @endif 
                 </div>
             </div>
             <div class="col-12">
@@ -77,3 +81,24 @@
     </div>
 </div>
 @endsection
+
+{{-- <script>
+        function heartClick(iBaord,iUser) {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('test') }}",
+                dataType: 'json',
+                data: {
+                    'i_board' : iBaord,
+                    'i_user' : iUser,
+                },
+                success: function(result) {
+                    console.log(result)
+                },
+                error:function(request,status,error){
+                    alert('좋아요에 실패하였습니다.')
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+        } 
+</script> --}}

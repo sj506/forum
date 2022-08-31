@@ -97,4 +97,17 @@ class likeController extends Controller
         return redirect()->route('view' , ['id' => $i_board]);
 
     }
+
+        public function test(Request $request)
+    {
+        //
+        dd($request);
+        // like::create([
+        //     'i_board' => $i_board,
+        //     'i_user' => $i_user,
+        // ]);
+
+        // return redirect()->route('view' , ['id' => $i_board]);
+
+    }
 }

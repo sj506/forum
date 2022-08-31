@@ -82,9 +82,8 @@ class boardController extends Controller
         $likeCheck = DB::table('likes')
                     ->select('likes.i_user')
                     ->where('i_board', $id)
-                    ->get();
-
-        $check = 0;
+                    ->where('i_user',Auth::user()->id)
+                    ->count();
 
         // $users = DB::table('users')
         //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
@@ -92,7 +91,7 @@ class boardController extends Controller
         //     ->select('users.*', 'contacts.phone', 'orders.price')
         //     ->get();
 
-        return view('forum.view',compact('data' , 'comment' , 'count' ,'likeCount' , 'likeCheck' , 'check'));
+        return view('forum.view',compact('data' , 'comment' , 'count' ,'likeCount' , 'likeCheck'));
     }
 
     /**

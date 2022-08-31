@@ -44,4 +44,6 @@ Route::get('/delcomment/{i_com}/{i_board}', [commentController::class, 'destroy'
 Route::get('/insheart/{i_board}/{i_user}', [likeController::class, 'store'])->name('insheart');
 Route::get('/delheart/{i_board}/{i_user}', [likeController::class, 'destroy'])->name('delheart');
 
+Route::get('/insheart', [likeController::class, 'test'])->name('test');
+
 });
