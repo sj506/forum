@@ -22,6 +22,7 @@ use App\Http\Controllers\likeController;
 // });
 Route::get('/', [ForumController::class, 'index'])->name('forum');
 Route::get('/view/{id}', [boardController::class, 'show'])->name('view');
+Route::post('/', [ForumController::class, 'index'])->name('search');
 
 
 Route::get('/dashboard', function () {
@@ -29,7 +30,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 require __DIR__.'/auth.php';
 
-Route::post('/search', [boardController::class, 'search'])->name('search');
+// Route::post('/search', [boardController::class, 'search'])->name('search');
 
 Route::group(['middleware' => ['auth']], function () {
 

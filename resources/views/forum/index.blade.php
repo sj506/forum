@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between">
                 <h4>My board</h4>
                 <div>
-                    <form class="d-flex" method="post" action="{{ 'search' }}">
+                    <form class="d-flex" method="post" action="{{ '/' }}">
                         @csrf
                         <input name="searchText" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
