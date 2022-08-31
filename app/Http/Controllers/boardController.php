@@ -79,11 +79,13 @@ class boardController extends Controller
                     ->where('i_board', $id)
                     ->count();
 
+        $likeCheck = 0;
+        if(Auth::user()) {
         $likeCheck = DB::table('likes')
                     ->select('likes.i_user')
                     ->where('i_board', $id)
                     ->where('i_user',Auth::user()->id)
-                    ->count();
+                    ->count();}
 
         // $users = DB::table('users')
         //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
