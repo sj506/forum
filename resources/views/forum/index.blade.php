@@ -8,7 +8,16 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-12">
-            <h4>My board</h4>
+            <div class="d-flex justify-content-between">
+                <h4>My board</h4>
+                <div>
+                    <form class="d-flex" method="post" action="{{ 'search' }}">
+                        @csrf
+                        <input name="searchText" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
             <ul class="list-group my-4">
                 @foreach ($data as $item)
                 <li class="list-group-item list-group-item-action">

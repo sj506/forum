@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
@@ -36,6 +35,8 @@ class ForumController extends Controller
         //     ->join('orders', 'users.id', '=', 'orders.user_id')
         //     ->select('users.*', 'contacts.phone', 'orders.price')
         //     ->get();
+
+        // dd(\Auth::user()->id);
         return view('forum.index',compact('data' , 'countList' , 'likeCount', 'page'));
     }
 

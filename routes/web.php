@@ -29,6 +29,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 require __DIR__.'/auth.php';
 
+Route::post('/search', [boardController::class, 'search'])->name('search');
+
 Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/write', [boardController::class, 'index'])->name('write')->middleware(['auth']);
