@@ -5,7 +5,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\boardController;
 use App\Http\Controllers\commentController;
 use App\Http\Controllers\likeController;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +32,9 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 // Route::post('/search', [boardController::class, 'search'])->name('search');
-Auth::routes();
+// Auth::routes();
 
-Route::group(['middleware' => ['auth' , 'loginCheck']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/write', [boardController::class, 'index'])->name('write');
     // Route::get('/write', [boardController::class, 'index'])->name('write')->middleware(['auth']);
@@ -47,6 +47,6 @@ Route::group(['middleware' => ['auth' , 'loginCheck']], function () {
     Route::get('/insheart/{i_board}/{i_user}', [likeController::class, 'store'])->name('insheart');
     Route::get('/delheart/{i_board}/{i_user}', [likeController::class, 'destroy'])->name('delheart');
 
-    Route::get('/insheart', [likeController::class, 'test'])->name('test');
+    // Route::get('/insheart', [likeController::class, 'test'])->name('test');
 
 });

@@ -16,10 +16,14 @@ class loginCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->age <= 200) {
-            return redirect('forum');
-        }
-
+        // dd($request->all());
+        // if ($request->id <= 0) {
+        //     return redirect('forum');
+        // }
+        // if (! $request->expectsJson()) {
+            // return route('login');
+        // // return response()->json($request);
+        // }
         return $next($request);
     }
 }
