@@ -2,6 +2,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-12 border mt-5">
@@ -25,22 +26,10 @@
             <div class="col-12">
                 <div class="d-grid gap-2 col-3 mx-auto">
                     @auth
-                                {{-- 테스트 --}}
-                                {{-- <button class="btn btn-outline-danger fs-6 mt-3" onclick="heartClick('{{ $data->i_board }},{{ Auth::user()->id }}')">
-                                    @csrf
-                                    <i class="fa-solid fa-heart">  {{ $likeCount }}</i>
-                                </button> --}}
-                                {{-- 테스트 --}}
-
-                        @if ($likeCheck === 1)
-                                <button class="btn btn-danger fs-6 mt-3" onclick="location.href='{{ url('/')}}/delheart/{{ $data->i_board }}/{{ Auth::user()->id }}'">
-                                    <i class="fa-solid fa-heart">  {{ $likeCount }}</i>
-                                </button>
-                        @else
-                                <button class="btn btn-outline-danger fs-6 mt-3" onclick="location.href='{{ url('/')}}/insheart/{{ $data->i_board }}/{{ Auth::user()->id }}'">
-                                    <i class="fa-solid fa-heart"> {{ $likeCount }}</i>
-                                </button>
-                        @endif
+                        <button class="btn fs-6 mt-3 likeButton {{ $likeCheck ? 'btn-danger' : 'btn-outline-danger' }}" value="{{ $likeCheck }}" onclick="heartClick(event , {{ $data->i_board }} , {{ Auth::user()->id }} , {{ $likeCheck }})">
+                            <i class="fa-solid fa-heart">
+                                <span class="like-count me-1">{{ $likeCount }}</span></i>
+                        </button>
                     @endauth
                     @if (!Auth::user())
                         <button class="btn btn-outline-danger fs-6 mt-3" onclick="alert('로그인 후에 가능합니다.')">
@@ -82,18 +71,33 @@
 </div>
 @endsection
 
-{{-- <script>
-        function heartClick(iBaord,iUser) {
+<script>
+
+        function heartClick(event, iBaord, iUser, likeCheck) {
+            console.log(event.target.value); 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: "{{ route('test') }}",
+                method: 'POST',
                 dataType: 'json',
                 data: {
                     'i_board' : iBaord,
                     'i_user' : iUser,
+                    'like_check' : event.target.value
                 },
                 success: function(result) {
                     console.log(result)
+                    if(event.target.value == 0) {
+                    $('.likeButton').removeClass('btn-outline-danger')
+                    $('.likeButton').addClass('btn-danger')
+                    $('.like-count').html(parseInt($('.like-count').text()) + 1)
+                    event.target.value = 1;
+                    } else {
+                    $('.likeButton').removeClass('btn-danger')
+                    $('.likeButton').addClass('btn-outline-danger')
+                    $('.like-count').html(parseInt($('.like-count').text()) - 1) 
+                    event.target.value = 0;
+                    }
                 },
                 error:function(request,status,error){
                     alert('좋아요에 실패하였습니다.')
@@ -101,4 +105,19 @@
                 }
             });
         } 
-</script> --}}
+
+//         (function(){
+//   // 실행할 기능을 정의해주세요.
+//             if($('.likeButton').value == 0) {
+//                 $('.likeButton').removeClass('btn-outline-danger')
+//                 $('.likeButton').addClass('btn-danger')
+//                 $('.like-count').html(parseInt($('.like-count').text()) + 1)
+//                 event.target.value = 1;
+//             } else {
+//                 $('.likeButton').removeClass('btn-danger')
+//                 $('.likeButton').addClass('btn-outline-danger')
+//                 $('.like-count').html(parseInt($('.like-count').text()) - 1) 
+//                 event.target.value = 0;
+//             }
+// })();
+</script>

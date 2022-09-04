@@ -5,6 +5,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\boardController;
 use App\Http\Controllers\commentController;
 use App\Http\Controllers\likeController;
+use App\Http\Controllers\uploadController;
 // use Illuminate\Support\Facades\Auth;
 
 /*
@@ -46,7 +47,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/delcomment/{i_com}/{i_board}', [commentController::class, 'destroy'])->name('delcomment');
     Route::get('/insheart/{i_board}/{i_user}', [likeController::class, 'store'])->name('insheart');
     Route::get('/delheart/{i_board}/{i_user}', [likeController::class, 'destroy'])->name('delheart');
+    Route::get('/page', [uploadController::class, 'index'])->name('page');
+    Route::post('/upload', [uploadController::class, 'store'])->name('upload');
 
-    // Route::get('/insheart', [likeController::class, 'test'])->name('test');
+    Route::post('/insheart', [likeController::class, 'test'])->name('test');
 
 });

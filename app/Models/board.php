@@ -13,5 +13,6 @@ class board extends Model
         'user_id',
         'title',
         'ctnt',
+        'img',
     ];
 }

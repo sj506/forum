@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\like;
-use Illuminate\Support\Facades\DB;
 
-class likeController extends Controller
+class uploadController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        return view('forum.write');
     }
 
     /**
@@ -34,16 +33,12 @@ class likeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($i_board , $i_user)
+    public function store(Request $request)
     {
         //
-        like::create([
-            'i_board' => $i_board,
-            'i_user' => $i_user,
-        ]);
+        $file = $request->uploadFile->store('img');
 
-        return redirect()->route('view' , ['id' => $i_board]);
-
+        return redirect()->route('page');
     }
 
     /**
@@ -86,35 +81,8 @@ class likeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($i_board , $i_user)
+    public function destroy($id)
     {
         //
-        DB::table('likes')
-            ->where('i_board', $i_board)
-            ->where('i_user' , $i_user)
-            ->delete();
-
-        return redirect()->route('view' , ['id' => $i_board]);
-
-    }
-
-        public function test(Request $request)
-    {
-        //
-        if($request->like_check == 1) {
-        DB::table('likes')
-            ->where('i_board', $request->i_board)
-            ->where('i_user' , $request->i_user)
-            ->delete();
-        }
-        else {
-        like::create([
-            'i_board' => $request->i_board,
-            'i_user' => $request->i_user,
-        ]);
-        }
-
-        // return redirect()->route('view' , ['id' => $i_board]);
-        return $request;
     }
 }

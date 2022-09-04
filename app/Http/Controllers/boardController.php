@@ -7,6 +7,7 @@ use App\Models\board;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class boardController extends Controller
 {
@@ -40,14 +41,15 @@ class boardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $file = $request->uploadFile->store('img');
         // $user_id = Auth::user()->user_id;
         board::create([
             'user_id' => $request['id'],
             'title' => $request['title'],
             'ctnt' => $request['ctnt'],
+            'img' => $file,
         ]);
-
         // return view('home');
         return redirect()->route('forum');
     }
@@ -86,6 +88,9 @@ class boardController extends Controller
                     ->where('i_board', $id)
                     ->where('i_user',Auth::user()->id)
                     ->count();}
+        // $imgSrc = Storage::path($data->img);
+                    // dd(Storage::path('a'));
+
 
         // $users = DB::table('users')
         //     ->join('contacts', 'users.id', '=', 'contacts.user_id')
