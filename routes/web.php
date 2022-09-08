@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/page', [uploadController::class, 'index'])->name('page');
     Route::post('/upload', [uploadController::class, 'store'])->name('upload');
 
-    Route::post('/insheart', [likeController::class, 'test'])->name('test');
-
+    Route::post('/insheart', [likeController::class, 'test'])->name('insheart');
 });
+
+Route::post('/autosearch', [boardController::class, 'autosearch'])->name('autosearch');

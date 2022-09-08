@@ -10,8 +10,10 @@
     <script src="https://kit.fontawesome.com/8eb4f0837a.js" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script> 
 
+    {{-- @livewireStyles --}}
   </head>
   <body class="overflow-hidden">
+    {{-- @livewireScripts --}}
 
 @include('ins.nav')
 

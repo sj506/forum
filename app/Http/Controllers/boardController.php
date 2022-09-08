@@ -156,7 +156,21 @@ class boardController extends Controller
            return;
         }
         return redirect()->route('forum');
+    }
 
+    public function autosearch(Request $request)
+    {
+        dd($request);
+        # code...
+        // $data = DB::table('boards')
+        //         ->join('users','user_id','=','users.id')
+        //         ->select('boards.*', 'users.name')
+        //         ->where('title', 'like', '%'.$request->searchText.'%')
+        //         ->orWhere('ctnt', 'like', '%'.$request->searchText.'%')
+        //         ->orderBy('updated_at' , 'DESC')
+        //         ->paginate(8);
+
+        return;
     }
 
     //     public function search(Request $request)

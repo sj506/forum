@@ -13,7 +13,8 @@
                 <div>
                     <form class="d-flex" method="post" action="{{ '/' }}">
                         @csrf
-                        <input name="searchText" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input name="searchText" id="auto-search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button onclick="test()" class="btn btn-outline-success" type="button">test</button>
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
@@ -53,4 +54,46 @@
         </div>
     </div>
 </div>
+
+
+<script>
+const autoSearch = document.querySelector("#auto-search");
+
+function test(){
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: "{{ route('autosearch') }}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    'searchText' : autoSearch.value,
+                },
+                success: function(result) {
+                    console.log(result)
+                },
+                error:function(request,status,error){
+                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                }
+            });
+};
+// $("#auto-search").on('change keydown paste input', function(){
+//             $.ajax({
+//                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+//                 url: "{{ route('autosearch') }}",
+//                 method: 'POST',
+//                 dataType: 'json',
+//                 data: {
+//                     'searchText' : autoSearch.value,
+//                 },
+//                 success: function(result) {
+//                     console.log(result)
+//                 },
+//                 error:function(request,status,error){
+//                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+//                 }
+//             });
+// });
+
+</script>
+
 @endsection

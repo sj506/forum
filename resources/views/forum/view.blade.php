@@ -77,7 +77,7 @@
             console.log(event.target.value); 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: "{{ route('test') }}",
+                url: "{{ route('insheart') }}",
                 method: 'POST',
                 dataType: 'json',
                 data: {
